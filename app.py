@@ -3,28 +3,26 @@ import psycopg2
 import uuid
 
 app = Flask(__name__)
-try:
-    conn = psycopg2.connect(
-        host="162.255.84.245",
-        port=5432,
-        database="sqlDB",
-        user="a22090715",
-        password="a22090715 "
-    )
-    # Crear un cursor
-    cursor = conn.cursor()
+import psycopg2
 
-    # Ejecutar una consulta
-    cursor.execute("SELECT * FROM miembro")
+# Conectarse a la base de datos
+conn = psycopg2.connect(
+    host="localhost",
+    port=5432,
+    database="bank",
+    user="root",
+    password="sharky"
+)
 
-    resultados = cursor.fetchall()
-    for row in resultados:
-        print(row)
-    conn.close()
+# Crear un cursor
+cursor = conn.cursor()
 
-except Exception as e:
-    print("Ocurrió un error al conectar a la base de datos:", e)
+# Ejecutar una consulta
 
+
+
+# Cerrar la conexión
+conn.close()
 
 
 
