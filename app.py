@@ -70,6 +70,27 @@ def upload():
     return 'JSON subido a la base de datos con éxito!', 200
 
 
+@app.route('/upload/miembro_info', methods=['POST'])
+def upload_miembro_info():
+    load_dotenv()
+    data = request.get_json()
+    API_KEY = os.getenv('URL')
+    conn = psycopg2.connect(API_KEY)
+    curr = conn.cursor()
+
+    try:
+        curr.execute(
+            "INSERT INTO Miembro_Info (ID_Miembro, edad, estatura, peso, temperatura) VALUES (%s, %s, %s, %s, %s)",
+            (data['ID_Miembro'], data['edad'], data['estatura'], data['peso'], data['temperatura'])
+        )
+        conn.commit()
+        conn.close()
+        return 'Datos subidos a la base de datos con éxito!', 200
+    except psycopg2.Error as e:
+        conn.rollback()
+        conn.close()
+        return f'Error al subir datos a la base de datos: {e}', 500
+
 if __name__ == '__main__':
     
     app.run(debug=True)
