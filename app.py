@@ -12,7 +12,13 @@ def signup():
     load_dotenv()
     data = request.get_json()
     API_KEY = os.getenv('URL')
-    conn = psycopg2.connect(API_KEY)
+    conn = psycopg2.connect(
+        dbname="defaultdb",
+    user="avnadmin",
+    password="AVNS__4aIWZKzxammKr4C5Rt",
+    host="pg-24c5d2c-hackatec2024.d.aivencloud.com",
+    port="22997",
+    )
     curr = conn.cursor()
     
     curr.execute("SELECT * FROM Usuario WHERE correo = %s", (data['correo'],))
@@ -38,7 +44,13 @@ def login():
     load_dotenv()
     data = request.get_json()
     API_KEY = os.getenv('URL')
-    conn = psycopg2.connect(API_KEY)
+    conn = psycopg2.connect(
+        dbname="defaultdb",
+    user="avnadmin",
+    password="AVNS__4aIWZKzxammKr4C5Rt",
+    host="pg-24c5d2c-hackatec2024.d.aivencloud.com",
+    port="22997",
+    )
     curr = conn.cursor()
     
     curr.execute("SELECT * FROM Usuario WHERE correo = %s", (data['correo'],))
@@ -56,7 +68,13 @@ def upload():
     load_dotenv()
     data = request.get_json()
     API_KEY = os.getenv('URL')
-    conn = psycopg2.connect(API_KEY)
+    conn = psycopg2.connect(
+        dbname="defaultdb",
+    user="avnadmin",
+    password="AVNS__4aIWZKzxammKr4C5Rt",
+    host="pg-24c5d2c-hackatec2024.d.aivencloud.com",
+    port="22997",
+    )
     curr = conn.cursor()
  
     curr.execute(
@@ -74,14 +92,19 @@ def upload():
 def upload_miembro_info():
     load_dotenv()
     data = request.get_json()
-    API_KEY = os.getenv('URL')
-    conn = psycopg2.connect(API_KEY)
+    conn = psycopg2.connect(
+        dbname="defaultdb",
+    user="avnadmin",
+    password="AVNS__4aIWZKzxammKr4C5Rt",
+    host="pg-24c5d2c-hackatec2024.d.aivencloud.com",
+    port="22997",
+    )
     curr = conn.cursor()
 
     try:
         curr.execute(
-            "INSERT INTO Miembro_Info (ID_Miembro, edad, estatura, peso, temperatura) VALUES (%s, %s, %s, %s, %s)",
-            (data['ID_Miembro'], data['edad'], data['estatura'], data['peso'], data['temperatura'])
+            "INSERT INTO MiembroInfo (ID_Miembro, edad, estatura, peso, temperatura, updated_at) VALUES (%s, %s, %s, %s, %s, %s)",
+            (data['ID_Miembro'], data['edad'], data['estatura'], data['peso'], data['temperatura'], data['updated_at'])
         )
         conn.commit()
         conn.close()

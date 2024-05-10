@@ -6,12 +6,26 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
     API_KEY = os.getenv('URL')
-    conn = psycopg2.connect(API_KEY)
+    conn = psycopg2.connect(
+        dbname="defaultdb",
+    user="avnadmin",
+    password="AVNS__4aIWZKzxammKr4C5Rt",
+    host="pg-24c5d2c-hackatec2024.d.aivencloud.com",
+    port="22997",
+    )
+    curr = conn.cursor()
+    query_sql = 'select *from pediatra;'
+    # query_sql = """INSERT INTO PEDIATRA VALUES ('12334', 'eric', 'dsad', 'dsadas');"""
+    # 
+    query_sql = """INSERT INTO miembroinfo VALUES ('12334', '12', '12', '32', '312', '1999-01-08 04:05:06');"""
+    print(curr.execute(query_sql))
+    # query_sql = 'ALTER TABLE Miembro add column Sexo boolean;'
+    # cur.execute(query_sql)
+    
+    
 
-    query_sql = 'ALTER TABLE Usuario add column correo varchar(45);'
-
-    cur = conn.cursor()
-    cur.execute(query_sql)
+    
+    
 #     cur.execute(query_sql)
 
 #     version = cur.fetchone()[0]
